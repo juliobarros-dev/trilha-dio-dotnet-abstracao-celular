@@ -1,4 +1,5 @@
 ﻿using AbstraindoCelular.Models;
+using System;
 using System.Text;
 // TODO: Realizar os testes com as classes Nokia e Iphone
 
@@ -47,6 +48,9 @@ while (showMenu)
       CellphoneMenu(cellphone, appStore);
       break;
     case 2:
+        cellphone = smartphones[1];
+        Console.Clear();
+        CellphoneMenu(cellphone, appStore);
       break;
     case 3:
       Console.Clear();
@@ -156,6 +160,36 @@ void CellphoneMenu(Smartphone cellphone, List<Aplicativo> apps)
 
           cellphone.InstalarAplicativo(app);
 
+          Console.WriteLine("\nPressione ENTER para retornar ao menu anterior");
+          Console.ReadLine();
+          Console.Clear();
+          break;
+        case 4:
+          Console.Clear();
+          if (!cellphone.Aplicativos.Any())
+          {
+            Console.WriteLine("Nenhum aplicativo instalado.");
+            Console.WriteLine("\nPressione ENTER para retornar ao menu anterior");
+            Console.ReadLine();
+            Console.Clear();
+            break;
+          }
+
+          Console.Write("Digite o nome do aplicativo que deseja desinstalar: ");
+          string uninstallApp = Console.ReadLine();
+          Aplicativo uninstallingApp = cellphone.Aplicativos.FirstOrDefault(x => x.Nome.ToLower().Contains(uninstallApp.ToLower()));
+
+          while (uninstallingApp == null && uninstallApp != "0")
+          {
+            Console.WriteLine("Aplicativo não encontrado");
+            Console.Write("Digite o nome do aplicativo que deseja desinstalar ou 0 para cancelar: ");
+            uninstallApp = Console.ReadLine();
+            uninstallingApp = cellphone.Aplicativos.FirstOrDefault(x => x.Nome.ToLower().Contains(uninstallApp.ToLower()));
+          }
+
+          if (uninstallApp == "0") break;
+
+          cellphone.DesinstalarAplicativoAsync(uninstallingApp);
           Console.WriteLine("\nPressione ENTER para retornar ao menu anterior");
           Console.ReadLine();
           Console.Clear();

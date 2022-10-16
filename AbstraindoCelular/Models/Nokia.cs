@@ -23,14 +23,9 @@
       return;
     }
 
-    public override async void DesinstalarAplicativoAsync(Aplicativo app)
+    public override void DesinstalarAplicativoAsync(Aplicativo app)
     {
-      Console.Write("\n Deinstalando");
-      for (int index = 1; index <= 3; index++)
-      {
-        await Task.Delay(1000);
-        Console.Write(". ");
-      }
+      Console.WriteLine("\n Desinstalando...");
 
       Aplicativos.Remove(app);
       RestaurarMemoria(app.Tamanho);
